@@ -14,3 +14,5 @@ fi
 
 # 1コマンドでGitHubから最新設定を取得し、パッケージ変更があれば再適用
 alias dotupdate='chezmoi update -v && source ~/.bashrc'
+
+alias gcd='cd "$(ghq list -p | peco)"'
