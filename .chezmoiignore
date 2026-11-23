@@ -1,0 +1,8 @@
+{{ if ne .chezmoi.os "windows" }}
+*.ps1
+{{ end }}
+
+{{ if eq .chezmoi.os "windows" }}
+*.sh
+dot_bashrc
+{{ end }}

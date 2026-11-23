@@ -1,0 +1,11 @@
+$ErrorActionPreference = "Stop"
+
+# winget で最低限のツールと mise を導入（導入済みなら自動スキップ）
+winget install --id Git.Git -e --source winget --accept-package-agreements --accept-source-agreements
+winget install --id jdx.mise -e --source winget --accept-package-agreements --accept-source-agreements
+
+# PATH を現在のセッションに即時反映
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+# mise config hash: {{ include "private_dot_config/mise/config.toml" | sha256sum }}
+mise install -y

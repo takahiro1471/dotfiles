@@ -1,0 +1,21 @@
+#!/usr/bin/env dot_bashrc
+set -euo pipefail
+
+# ---------------------------------------------------------
+# 1. OS別のパッケージ導入
+# ---------------------------------------------------------
+
+# Linux環境のセットアップ
+{{ if eq .chezmoi.os "linux" }}
+sudo apt-get update
+sudo apt-get install -y curl git
+# ---------------------------------------------------------
+# 2. mise のインストールとツール群の一括導入
+# ---------------------------------------------------------
+if ! command -v mise >/dev/null 2>&1; then
+    curl https://mise.run | sh
+fi
+
+# config.toml が更新されたときも自動で再実行させるためのハッシュ埋め込み
+# mise config hash: {{ include "private_dot_config/mise/config.toml" | sha256sum }}
+"$HOME/.local/bin/mise" install -y
